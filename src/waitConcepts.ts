@@ -5,7 +5,7 @@ import {Browser, Locator, Page, chromium, expect} from '@playwright/test'
 
     let browser:Browser= await chromium.launch(
     
-            {headless:false, channel:'chrome'}
+            {headless:true, channel:'chrome'}
         );
         let page : Page = await browser.newPage({viewport : null});
 

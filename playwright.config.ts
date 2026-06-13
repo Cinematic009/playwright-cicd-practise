@@ -9,7 +9,7 @@ export default defineConfig({
   reporter: 'html',
 
  use: {
-    headless: process.env.CI ? true : false, // 👈 Smart toggle!
+    headless: process.env.CI ? true : true, // 👈 Smart toggle!
     // slowMo: 500,
     screenshot: 'only-on-failure',
     trace: 'on',

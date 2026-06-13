@@ -5,7 +5,7 @@ import { test, expect, chromium , Browser, Page, Locator} from '@playwright/test
      
 
    
-   let browser: Browser =await chromium.launch({headless:false});
+   let browser: Browser =await chromium.launch({headless:true});
    let page : Page = await browser.newPage();
    await page.goto("https://naveenautomationlabs.com/opencart/index.php?route=account/login");
    let title : string = await page.title();

@@ -6,7 +6,7 @@ import {Page, Locator, Browser, chromium} from '@playwright/test'
     // psuedo classes
     // :: before & :: after
     // it has no html tag no attributes
-        let browser : Browser = await chromium.launch({headless:false, channel:'chrome'})
+        let browser : Browser = await chromium.launch({headless:true, channel:'chrome'})
         let page : Page = await browser.newPage({viewport: null})
         await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register', {waitUntil:'load'});
       //`window.getComputedStyle(document.querySelector(`label[for='input-firstname']`), '::before').getPropertyValue('content')`

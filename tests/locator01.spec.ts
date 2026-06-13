@@ -3,7 +3,7 @@ import {test, Browser, Page, chromium} from '@playwright/test'
 // IIFE
 (async()=>{
 
-    let browser : Browser = await chromium.launch({headless:false, channel : 'chrome'});
+    let browser : Browser = await chromium.launch({headless:true, channel : 'chrome'});
     let page : Page =await browser.newPage();
     // await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
     // await page.locator('#input-email').fill('sunil@gmail.com');

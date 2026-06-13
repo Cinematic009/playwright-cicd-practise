@@ -4,7 +4,7 @@ import {Page, Locator, Browser, chromium} from '@playwright/test'
     
     let browser:Browser= await chromium.launch(
 
-        {headless:false, channel:'chrome', args : ['--start-maximized']}
+        {headless:true, channel:'chrome', args : ['--start-maximized']}
     );
     let page : Page = await browser.newPage({viewport : null});
     page.goto('https://classic.freecrm.com/');

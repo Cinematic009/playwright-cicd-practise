@@ -2,7 +2,7 @@ import {Page, Locator, Browser, chromium, FrameLocator} from '@playwright/test'
 
 (async () =>{
 
-    let browser : Browser = await chromium.launch({headless:false, channel:'chrome'})
+    let browser : Browser = await chromium.launch({headless:true, channel:'chrome'})
     let page : Page = await browser.newPage({viewport: null})
 
    // page.goto('https://www.flipkart.com/');

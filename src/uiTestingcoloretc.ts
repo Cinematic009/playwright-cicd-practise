@@ -2,7 +2,7 @@ import {Page, Locator, Browser, chromium} from '@playwright/test'
 
 (async () => {
 
-        let browser : Browser = await chromium.launch({headless:false, channel:'chrome'})
+        let browser : Browser = await chromium.launch({headless:true, channel:'chrome'})
         let page : Page = await browser.newPage({viewport: null})
         await page.goto('https://orangehrm.com/contact-sales', {waitUntil:'load'});
         let contactSales : Locator =  page.getByRole('button', {name :'Contact Sales'}).first();

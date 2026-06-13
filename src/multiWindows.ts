@@ -4,7 +4,7 @@ import { test, expect , Browser, Page, chromium, Locator} from '@playwright/test
 
 (async () => {
 
-    let browser : Browser = await chromium.launch({headless: false, channel:'chrome'})
+    let browser : Browser = await chromium.launch({headless: true, channel:'chrome'})
     let brsrConxt = await browser.newContext();
     let page = await brsrConxt.newPage();
 

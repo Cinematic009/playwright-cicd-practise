@@ -2,7 +2,7 @@ import {Browser, Locator, Page, chromium} from "@playwright/test"
 
 (async ()=>{
 
-  let launchBrowser: Browser = await chromium.launch({headless:false, channel:'chrome'});
+  let launchBrowser: Browser = await chromium.launch({headless:true, channel:'chrome'});
   let page : Page = await launchBrowser.newPage();
 
   await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');

@@ -23,7 +23,7 @@ import{Page, Locator, Browser, chromium, expect} from '@playwright/test'
 
 // Right Click (Simple Context Menu )
 
-let browser: Browser = await chromium.launch({headless:false, channel:'chrome'});
+let browser: Browser = await chromium.launch({headless:true, channel:'chrome'});
 let page : Page = await browser.newPage();
 page.goto('https://swisnl.github.io/jQuery-contextMenu/demo.html');
 await page.locator(`span.context-menu-one`).click({button : 'right'});

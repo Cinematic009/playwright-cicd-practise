@@ -39,7 +39,7 @@ test.afterAll(async () => {
 test('test1', async () => {
   // ✅ FIX 1: Removed the built-in `{page}` fixture — it conflicts with the
   //           manually launched browser. We manage our own page below.
-  browser = await chromium.launch({ headless: false, channel: 'chrome' });
+  browser = await chromium.launch({ headless: true, channel: 'chrome' });
 
   browserContext = await browser.newContext({
     recordVideo: {
