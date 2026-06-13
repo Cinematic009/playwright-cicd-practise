@@ -8,8 +8,8 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
 
-  use: {                          // ← this entire block was missing!
-    headless: false,
+ use: {
+    headless: process.env.CI ? true : false, // 👈 Smart toggle!
     // slowMo: 500,
     screenshot: 'only-on-failure',
     trace: 'on',
