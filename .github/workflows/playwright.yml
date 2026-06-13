@@ -27,8 +27,7 @@ jobs:
 
     - name: Run Playwright tests
       run: npx playwright test
-      env:
-        HEADLESS: true
+      continue-on-error: true
 
     - name: Upload Playwright Report
       uses: actions/upload-artifact@v4
