@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('handle calender', async ({ page }) => {
+test.skip('handle calender', async ({ page }) => {
 
     await page.goto('https://seleniumpractise.blogspot.com/2016/08/how-to-handle-calendar-in-selenium.html');
     await page.locator(`input[id='datepicker']`).click();

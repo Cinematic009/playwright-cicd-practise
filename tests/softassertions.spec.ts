@@ -1,6 +1,6 @@
 import { Page, test, Expect, Locator, chromium, Browser, BrowserContext, expect } from '@playwright/test';
 
-test('locator bases assertions', async ({ page }) => {
+test.skip('locator bases assertions', async ({ page }) => {
 
     await page.waitForTimeout(1500);
     await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register')

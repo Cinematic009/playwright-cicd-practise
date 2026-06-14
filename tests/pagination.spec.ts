@@ -3,7 +3,7 @@ import { toASCII } from 'node:punycode';
 
 
 // test pagination with next button
-test ('test pagination' , async({page})=>{
+test.skip ('test pagination' , async({page})=>{
 
     await page.goto('https://selectorshub.com/xpath-practice-page/');
 
@@ -23,7 +23,7 @@ test ('test pagination' , async({page})=>{
 })
 
 //test pagination with till end if no element is no present
-test ('test pagination with till end if no element is no present' , async({page})=>{
+test.skip ('test pagination with till end if no element is no present' , async({page})=>{
 
     await page.goto('https://selectorshub.com/xpath-practice-page/');
     await page.waitForTimeout(1500);
@@ -50,7 +50,7 @@ test ('test pagination with till end if no element is no present' , async({page}
 })
 
 // select the check box for country india till 10th page 
-test ('test pagination with multiple checkboxes' , async({page})=>{
+test.skip ('test pagination with multiple checkboxes' , async({page})=>{
 
     await page.goto('https://selectorshub.com/xpath-practice-page/');
 

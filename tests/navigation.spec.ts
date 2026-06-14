@@ -12,4 +12,5 @@ test('check the navigation', async({page})=>{
     
     await page.waitForTimeout(3000);
     await page.reload();
+    await page.close();
 })

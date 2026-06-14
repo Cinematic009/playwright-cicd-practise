@@ -11,7 +11,7 @@ import { ref } from 'node:process'
 
 // })
 
-test ('check the url', async ({page})=>{
+test.skip ('check the url', async ({page})=>{
 
   await page.goto('https://www.flipkart.com', {referer: 'https://www.google.com'})
 

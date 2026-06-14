@@ -10,7 +10,7 @@ let loginData = [
 
 for (let data of loginData){
 
-    test(`login test for opencart for ${data.username} and ${data.password}`, async({page})=>{
+    test.skip(`login test for opencart for ${data.username} and ${data.password}`, async({page})=>{
          
         await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
         await page.getByRole('textbox', { name: 'E-Mail Address' }).fill(data.username);

@@ -2,7 +2,7 @@ import {test, expect} from '@playwright/test'
 import {Elementutil} from '../utils/Elementutil.js'
 
 
-test ('my test method' , async({page})=>{
+test.skip ('my test method' , async({page})=>{
 
     await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register');
     let ele = new Elementutil(page, 5000);

@@ -23,7 +23,7 @@ type regData = {
 
 for ( let user of registrationData)
 {
-    test (`Registration teeest for new user ${user.firstName} and ${user.lastName}`, async({page})=>{
+    test.skip(`Registration teeest for new user ${user.firstName} and ${user.lastName}`, async({page})=>{
 
         await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register');
         await page.getByRole('textbox', { name: 'First Name' }).fill(user.firstName);

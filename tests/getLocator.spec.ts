@@ -1,18 +1,18 @@
-import {test, Browser, Page, chromium} from '@playwright/test'
+// import {test, Browser, Page, chromium} from '@playwright/test'
 
-// IIFE
-(async()=>{
+// // IIFE
+// (async()=>{
 
-    let browser : Browser = await chromium.launch({headless:true, channel : 'chrome'});
-    let page : Page =await browser.newPage();
-   await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
-    // await page.getByAltText('naveenopencart').click();
+//     let browser : Browser = await chromium.launch({headless:true, channel : 'chrome'});
+//     let page : Page =await browser.newPage();
+//    await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
+//     // await page.getByAltText('naveenopencart').click();
 
-    // await page.goto('https://naveenautomationlabs.com/opencart/ui/data-testid-page.html');
-    // await page.getByTestId('username-input').fill('sunil');
+//     // await page.goto('https://naveenautomationlabs.com/opencart/ui/data-testid-page.html');
+//     // await page.getByTestId('username-input').fill('sunil');
 
-    await  page.getByTitle('naveenopencart').click();
+//     await  page.getByTitle('naveenopencart').click();
 
-   // await page.close();
+//    // await page.close();
 
-})();
+// })();

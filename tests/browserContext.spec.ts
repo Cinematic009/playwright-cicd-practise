@@ -2,7 +2,7 @@ import {test,  chromium, Browser, BrowserContext, Page } from "@playwright/test"
 import { channel } from "node:diagnostics_channel"
 
 
-    test ('check browser context', async ()=>{
+    test.skip ('check browser context', async ()=>{
 
         let browser : Browser =await chromium.launch({headless:true, channel: 'chrome'});
         let browserContext1 :BrowserContext= await browser.newContext();

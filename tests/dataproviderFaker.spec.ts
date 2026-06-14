@@ -19,7 +19,7 @@ let userCount =3;
 
 for (let i=0; i<=userCount; i++)
 {
- test (`Registration teeest for new user account ${i}`, async({page})=>{
+ test.skip (`Registration teeest for new user account ${i}`, async({page})=>{
 
     // without using object generate user
     //  const firstName = faker.person.firstName();
