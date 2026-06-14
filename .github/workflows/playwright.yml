@@ -1,92 +1,8 @@
-# name: Playwright CI-CD Pipeline
-# on:
-#   push:
-#     branches: [ main, master ]
-#   pull_request:
-#     branches: [ main, master ]
-
-#   # 🔘 Manual Trigger: Clickable "Run workflow" button in the GitHub UI
-#   workflow_dispatch:
-
-#   # ⏰ Scheduled Trigger: Runs automatically every night at midnight UTC (5:30 AM IST)
-#   # schedule:
-#   #   - cron: '0 0 * * *'
-
-# jobs:
-#   # ─── CI STAGE: TEST ENVIRONMENT ───
-#   test:
-#     timeout-minutes: 60
-#     runs-on: ubuntu-latest
-    
-#     strategy:
-#       fail-fast: false
-#       matrix:
-#         browser: [chromium, firefox, webkit]
-
-#     steps:
-#     - uses: actions/checkout@v4
-#     - uses: actions/setup-node@v4
-#       with:
-#         node-version: lts/*
-        
-#     # 📦 Ultimate Caching Layer: Stores node_modules AND browser binaries to stop repetitive downloads
-#     - name: Cache Node Modules & Playwright Browsers
-#       id: playwright-cache
-#       uses: actions/cache@v4
-#       with:
-#         path: |
-#           node_modules
-#           ~/.cache/ms-playwright
-#         key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
-#         restore-keys: |
-#           ${{ runner.os }}-playwright-
-
-#     - name: Install dependencies
-#       if: steps.playwright-cache.outputs.cache-hit != 'true'
-#       run: npm ci
-      
-#     - name: Install Playwright Browsers
-#       if: steps.playwright-cache.outputs.cache-hit != 'true'
-#       run: npx playwright install --with-deps
-
-#     # 🛠️ OS Safeguard: Always maps system libraries to prevent WebKit/Firefox launch crashes
-#     - name: Install Playwright Operating System Dependencies
-#       run: npx playwright install-deps
-      
-#     - name: Run Playwright tests
-#       run: npx playwright test tests/describe.spec.ts --project=${{ matrix.browser }}
-
-#     - name: Upload Playwright Report
-#       uses: actions/upload-artifact@v4
-#       if: always()
-#       with:
-#         name: playwright-report-${{ matrix.browser }}
-#         path: playwright-report/
-#         retention-days: 30
-
-#   # ─── CD STAGE: CONTINUOUS DEPLOYMENT (NO MANUAL APPROVAL REQUIRED) ───
-#   deploy:
-#     name: Deploy to Production
-#     needs: test # Ensures deployment ONLY triggers if all matrix browser tests pass successfully!
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v4
-
-#     - name: Deploying App Live
-#       run: |
-#         echo "🚀 Playwright Automation Tests Passed with flying colors!"
-#         echo "🌐 Initiating Continuous Deployment sequence..."
-#         echo "📦 Shipping production bundles to the cloud servers..."
-
 name: Playwright Quick Cron Test
 on:
   push:
     branches: [ main, master ]
-    
-  # 🔘 Manual Trigger: Allows you to still run it with a button click if needed
   workflow_dispatch:
-
-  # ⏰ Scheduled Trigger: Configured to fire every 5 minutes
   schedule:
     - cron: '*/5 * * * *'
 
@@ -109,7 +25,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test tests/describe.spec.ts --project=chromium
 
-     Tarname: Upload Playwright Report
+    - name: Upload Playwright Report
       uses: actions/upload-artifact@v4
       if: always()
       with:
