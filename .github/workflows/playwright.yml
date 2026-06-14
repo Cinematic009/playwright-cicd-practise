@@ -58,42 +58,52 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
         
-    # 📦 Optimization: Cache Node Modules to save execution time
-    - name: Cache Node Modules
-      id: node-modules-cache
+    # 📦 ULTIMATE OPTIMIZATION: Cache node_modules AND browser binaries together
+    - name: Cache Node Modules & Playwright Browsers
+      id: playwright-cache
       uses: actions/cache@v4
       with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        path: |
+          node_modules
+          ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-node-
+          ${{ runner.os }}-playwright-
 
     - name: Install dependencies
-      # This skips downloading node_modules if a perfect cache match is found!
-      if: steps.node-modules-cache.outputs.cache-hit != 'true'
+      # ⏭️ Skips this step completely if a perfect cache match is found
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npm ci
       
     - name: Install Playwright Browsers
+      # ⏭️ Skips browser downloads entirely if the cache is restored
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npx playwright install --with-deps
       
     - name: Run Playwright tests
-      run: npx playwright test tests/describe.spec.ts
+      run: npx playwright test tests/describe.spec.ts --project=${{ matrix.browser }}
 
     - name: Upload Playwright Report
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-report
+        name: playwright-report-${{ matrix.browser }}
         path: playwright-report/
         retention-days: 30
 
-  # ─── CD STAGE: CONTINUOUS DEPLOYMENT ───
+  # ─── CD STAGE: CONTINUOUS DELIVERY ───
   deploy:
     name: Deploy to Production
     needs: test
