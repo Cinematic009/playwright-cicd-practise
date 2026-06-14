@@ -1,119 +1,118 @@
-# name: Playwright Regression Pipeline
-
+# name: Playwright CI-CD Pipeline
 # on:
 #   push:
-#     branches: [ main ]
+#     branches: [ main, master ]
 #   pull_request:
-#     branches: [ main ]
+#     branches: [ main, master ]
+
+#   # 🔘 Manual Trigger: Clickable "Run workflow" button in the GitHub UI
+#   workflow_dispatch:
+
+#   # ⏰ Scheduled Trigger: Runs automatically every night at midnight UTC (5:30 AM IST)
+#   # schedule:
+#   #   - cron: '0 0 * * *'
 
 # jobs:
+#   # ─── CI STAGE: TEST ENVIRONMENT ───
 #   test:
 #     timeout-minutes: 60
 #     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v4
+    
+#     strategy:
+#       fail-fast: false
+#       matrix:
+#         browser: [chromium, firefox, webkit]
 
-#     - name: Setup Node.js
-#       uses: actions/setup-node@v4
+#     steps:
+#     - uses: actions/checkout@v4
+#     - uses: actions/setup-node@v4
 #       with:
 #         node-version: lts/*
+        
+#     # 📦 Ultimate Caching Layer: Stores node_modules AND browser binaries to stop repetitive downloads
+#     - name: Cache Node Modules & Playwright Browsers
+#       id: playwright-cache
+#       uses: actions/cache@v4
+#       with:
+#         path: |
+#           node_modules
+#           ~/.cache/ms-playwright
+#         key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+#         restore-keys: |
+#           ${{ runner.os }}-playwright-
 
 #     - name: Install dependencies
+#       if: steps.playwright-cache.outputs.cache-hit != 'true'
 #       run: npm ci
-
-#     - name: Install Playwright Browsers
-#       run: npx playwright install chromium --with-deps
-
-#     - name: Run Playwright tests
-#      # run: npx playwright test
-#       run: npx playwright test tests/describe.spec.ts
       
+#     - name: Install Playwright Browsers
+#       if: steps.playwright-cache.outputs.cache-hit != 'true'
+#       run: npx playwright install --with-deps
+
+#     # 🛠️ OS Safeguard: Always maps system libraries to prevent WebKit/Firefox launch crashes
+#     - name: Install Playwright Operating System Dependencies
+#       run: npx playwright install-deps
+      
+#     - name: Run Playwright tests
+#       run: npx playwright test tests/describe.spec.ts --project=${{ matrix.browser }}
 
 #     - name: Upload Playwright Report
 #       uses: actions/upload-artifact@v4
 #       if: always()
 #       with:
-#         name: playwright-report
+#         name: playwright-report-${{ matrix.browser }}
 #         path: playwright-report/
 #         retention-days: 30
-#         include-hidden-files: true
 
-name: Playwright CI-CD Pipeline
+#   # ─── CD STAGE: CONTINUOUS DEPLOYMENT (NO MANUAL APPROVAL REQUIRED) ───
+#   deploy:
+#     name: Deploy to Production
+#     needs: test # Ensures deployment ONLY triggers if all matrix browser tests pass successfully!
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v4
+
+#     - name: Deploying App Live
+#       run: |
+#         echo "🚀 Playwright Automation Tests Passed with flying colors!"
+#         echo "🌐 Initiating Continuous Deployment sequence..."
+#         echo "📦 Shipping production bundles to the cloud servers..."
+
+name: Playwright Quick Cron Test
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-
-  # 🔘 Trigger 1: Adds a manual "Run workflow" button in the GitHub UI
+    
+  # 🔘 Manual Trigger: Allows you to still run it with a button click if needed
   workflow_dispatch:
 
-  # ⏰ Trigger 2: Runs automatically every night at midnight UTC (5:30 AM IST)
+  # ⏰ Scheduled Trigger: Configured to fire every 5 minutes
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
-  # ─── CI STAGE: TEST ENVIRONMENT ───
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chromium, firefox, webkit]
-
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
         
-    # 📦 ULTIMATE OPTIMIZATION: Cache node_modules AND browser binaries together
-    - name: Cache Node Modules & Playwright Browsers
-      id: playwright-cache
-      uses: actions/cache@v4
-      with:
-        path: |
-          node_modules
-          ~/.cache/ms-playwright
-        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-playwright-
-
     - name: Install dependencies
-      # ⏭️ Skips this step completely if a perfect cache match is found
-      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npm ci
       
-    - name: Install Playwright Browsers
-      # ⏭️ Skips browser downloads entirely if the cache is restored
-      if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: npx playwright install --with-deps
+    - name: Install Playwright Chromium Browser Only
+      run: npx playwright install chromium --with-deps
       
     - name: Run Playwright tests
-      run: npx playwright test tests/describe.spec.ts --project=${{ matrix.browser }}
+      run: npx playwright test tests/describe.spec.ts --project=chromium
 
-    - name: Upload Playwright Report
+     Tarname: Upload Playwright Report
       uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-report-${{ matrix.browser }}
+        name: playwright-report
         path: playwright-report/
         retention-days: 30
-
-  # ─── CD STAGE: CONTINUOUS DELIVERY ───
-  deploy:
-    name: Deploy to Production
-    needs: test
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Deploying App Live
-      run: |
-        echo "🚀 Playwright Automation Tests Passed with flying colors!"
-        echo "🌐 Initiating Continuous Deployment sequence..."
-        echo "📦 Shipping production bundles to the cloud servers..."
