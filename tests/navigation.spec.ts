@@ -10,7 +10,7 @@ test.skip('check the navigation', async({page})=>{
     await page.goBack();
     await page.goForward();
     
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
     await page.reload();
     await page.close();
 })
