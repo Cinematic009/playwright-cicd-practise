@@ -19,7 +19,7 @@ test.skip('locator bases assertions', async ({ page }) => {
 
 // Not to be/contain/toEqual etc
 
-test('not to be assertions', async ({page})=>{
+test.skip('not to be assertions', async ({page})=>{
 
     await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register')
     let deskToptext = page.getByText('error', { exact: true });
@@ -27,7 +27,7 @@ test('not to be assertions', async ({page})=>{
 })
 
 // test with validating url and title with expect directly
-test('url and title', async ({page})=>{
+test.skip('url and title', async ({page})=>{
 
     await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register')
     

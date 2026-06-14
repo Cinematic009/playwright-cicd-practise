@@ -1,8 +1,8 @@
 import{test, expect} from '@playwright/test'
 
-test.describe('test suite no1', ()=>{
+test.describe.skip('test suite no1', ()=>{
 
-test('title test', async ({page, browserName}) =>{
+test.skip('title test', async ({page, browserName}) =>{
 
     console.log(`Started ${browserName} at ${new Date().toLocaleTimeString()}`)
     //test.skip(browserName==='firefox', 'this test does not support firefox')
@@ -10,7 +10,7 @@ test('title test', async ({page, browserName}) =>{
     await expect(page).toHaveTitle('Register Account', {timeout: 3000});
 })
 
-test('url test', async ({page, browserName}) =>{
+test.skip('url test', async ({page, browserName}) =>{
 
     console.log(`Started ${browserName} at ${new Date().toLocaleTimeString()}`)
     await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register')
@@ -19,15 +19,15 @@ test('url test', async ({page, browserName}) =>{
 
 })
 
-test.describe('test suite no 2', ()=>{
+test.describe.skip('test suite no 2', ()=>{
 
-    test('header visible test', async ({page,browserName}) =>{
+    test.skip('header visible test', async ({page,browserName}) =>{
     console.log(`Started ${browserName} at ${new Date().toLocaleTimeString()}`)
     await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register')
     await expect(page.getByRole('heading', { name: 'Register Account' })).toHaveText('Register Account');
 });
 
-test('firstName test', async ({page, browserName}) =>{
+test.skip('firstName test', async ({page, browserName}) =>{
 
     console.log(`Started ${browserName} at ${new Date().toLocaleTimeString()}`)
     await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register')

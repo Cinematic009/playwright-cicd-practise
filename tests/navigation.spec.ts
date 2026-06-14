@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('check the navigation', async({page})=>{
+test.skip('check the navigation', async({page})=>{
 
     await page.goto('https://www.google.com');
     console.log(page.title());

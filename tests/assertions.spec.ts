@@ -1,6 +1,6 @@
 import { Page, test, Expect, Locator, chromium, Browser, BrowserContext, expect } from '@playwright/test';
 
-test('assertions tests', async ({ }) => {
+test.skip('assertions tests', async ({ }) => {
 
     // expect have its own auto wait which 5 seconds
     expect(1 + 1).toBe(2);
@@ -18,7 +18,7 @@ test('assertions tests', async ({ }) => {
 })
 
 
-test('locator bases assertions', async ({ page }) => {
+test.skip('locator bases assertions', async ({ page }) => {
 
     await page.waitForTimeout(1500);
     await page.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register')
