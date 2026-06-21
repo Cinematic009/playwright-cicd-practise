@@ -24,14 +24,31 @@ export class Elementutil {
      * @param locator 
      * @returns 
      */
-    public  getLocator (locator : flexibleLocator) : Locator {
+    public  getLocator (locator : flexibleLocator, index?:number) : Locator {
       
         if(typeof locator === 'string')
         {
-           return  this.page.locator(locator);
+            if(index){
+                return  this.page.locator(locator).nth(index);
+            }
+
+            else{
+
+               return  this.page.locator(locator).first();
+            }
         }
 
-        return locator;
+        else{
+            if(index)
+            {
+                return locator.nth(index);
+            }
+            else{
+
+                return locator.first();
+            }
+        }
+        
       
     }
 
