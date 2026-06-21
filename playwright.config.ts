@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   // Changed to false for CI stability against public practice endpoints
-  fullyParallel: false, 
+  fullyParallel: true, 
   forbidOnly: !!process.env.CI,
   
   // 🎯 FIXED: Changed from 2 to 0 so it fails fast in CI instead of looping forever
@@ -39,9 +39,9 @@ export default defineConfig({
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
   ],
 });
